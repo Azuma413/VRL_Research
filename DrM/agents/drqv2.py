@@ -116,11 +116,8 @@ class Critic(nn.Module):
 
         return q1, q2
 
-
 class DrQV2Agent:
-    def __init__(self, obs_shape, action_shape, device, lr, feature_dim,
-                 hidden_dim, critic_target_tau, num_expl_steps,
-                 update_every_steps, stddev_schedule, stddev_clip, use_tb):
+    def __init__(self, obs_shape, action_shape, device, lr, feature_dim, hidden_dim, critic_target_tau, target_lambda, max_perturb_factor, num_expl_steps, stddev_schedule, stddev_clip, use_tb, update_every_steps):
         self.device = device
         self.critic_target_tau = critic_target_tau
         self.update_every_steps = update_every_steps

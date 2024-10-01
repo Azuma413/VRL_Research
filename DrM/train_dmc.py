@@ -38,7 +38,12 @@ class Workspace:
         print(f'workspace: {self.work_dir}')
         self.cfg = cfg
         if self.cfg.use_wandb:
-            exp_name = '_'.join([cfg.task_name, str(cfg.seed)])
+            if cfg.agent['_target_'] == 'agents.drqv2.DrQV2Agent':
+                exp_name='DrQ-v2(' + cfg.task_name + ')'
+            elif cfg.agent['_target_'] == 'agents.drm.DrMAgent':
+                exp_name='DrM(' + cfg.task_name + ')'
+            else:
+                exp_name='unknown'
             group_name = re.search(r'\.(.+)\.', cfg.agent._target_).group(1)
             wandb.init(project=cfg.wandb_project,
                        entity=cfg.wandb_entity,

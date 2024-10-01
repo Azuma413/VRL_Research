@@ -1,5 +1,6 @@
 import cv2
 import imageio
+import wandb
 
 
 class VideoRecorder:
@@ -37,6 +38,8 @@ class VideoRecorder:
                 import numpy as np
                 self.frames = np.array(self.frames, dtype=np.uint8).transpose(0, 2, 3, 1)
             imageio.mimsave(str(path), self.frames, fps=self.fps)
+            # wandbに動画を保存
+            wandb.log({'videos/eval_video': wandb.Video(str(path), fps=15, format='mp4')})
 
 
 class TrainVideoRecorder:

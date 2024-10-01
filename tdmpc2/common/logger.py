@@ -98,7 +98,7 @@ class VideoRecorder:
 		if self.enabled and len(self.frames) > 0:
 			frames = np.stack(self.frames)
 			return self._wandb.log(
-				{key: self._wandb.Video(frames.transpose(0, 3, 1, 2), fps=self.fps, format='mp4')}, step=step
+				{key: self._wandb.Video(frames.transpose(0, 3, 1, 2), fps=15, format='mp4')}, step=step
 			)
 
 
@@ -129,7 +129,7 @@ class Logger:
 		wandb.init(
 			project=self.project,
 			entity=self.entity,
-			name='TD-MPC2(' + str(cfg.seed) + ')',
+			name='TD-MPC2(' + cfg.task + ')',
 			group=self._group,
 			tags=cfg_to_group(cfg, return_list=True) + [f"seed:{cfg.seed}"],
 			dir=self._log_dir,
